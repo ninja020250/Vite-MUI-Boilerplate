@@ -1,0 +1,80 @@
+{
+  "name": "boileplate",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "sit": "vite --mode sit",
+    "uat": "vite --mode uat",
+    "prod": "vite --mode prod",
+    "build:dev": "tsc && vite build --mode dev",
+    "build:sit": "tsc && vite build --mode sit",
+    "build:uat": "tsc && vite build --mode uat",
+    "build:prod": "tsc && vite build --mode prod",
+    "svgr": "svgr --typescript --ext tsx --out-dir src/icons src/assets/icons",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "storybook": "sb dev -p 6006",
+    "build-storybook": "sb build",
+    "prettier": "prettier src --check",
+    "test": "vitest --watch=false --coverage",
+    "test:update": "vitest --update --watch=false",
+    "test:ui": "vitest --ui",
+    "prepare": "husky install"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.9",
+    "@svgr/cli": "^8.1.0",
+    "ahooks": "^3.7.11",
+    "axios": "^1.6.8",
+    "lodash": "^4.17.21",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.4",
+    "react-hook-form": "^7.51.2",
+    "react-i18next": "^14.1.0",
+    "react-router-dom": "^6.22.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^7.5.3",
+    "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-links": "^7.5.3",
+    "@storybook/cli": "^7.5.3",
+    "@storybook/react": "^7.5.3",
+    "@storybook/react-vite": "^7.5.3",
+    "@testing-library/react": "^14.1.2",
+    "@types/lodash": "^4.17.0",
+    "@types/node": "^20.12.4",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@vitest/coverage-v8": "^1.4.0",
+    "@vitest/ui": "^1.4.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "husky": "^9.0.11",
+    "jsdom": "^24.0.0",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vitest": "^1.2.2",
+    "vitest-sonar-reporter": "^1.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "npm run lint",
+      "eslint"
+    ]
+  }
+}
