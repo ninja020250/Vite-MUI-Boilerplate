@@ -1,24 +1,18 @@
-import { InputNumberField } from "@components/atom/InputNumberField";
-import { TextFieldProps } from "@components/atom/TextField";
-import { FormControl, InputAdornment, InputLabel, InputLabelProps, InputProps, Stack } from "@mui/material";
-import { Controller, ControllerProps } from "react-hook-form";
+import { InputNumberField } from '@components/atom/InputNumberField'
+import { TextFieldProps } from '@components/atom/TextField'
+import { FormControl, InputAdornment, InputLabelProps, InputProps } from '@mui/material'
+import { Controller, ControllerProps } from 'react-hook-form'
 
 export type PhoneFormFieldProps = {
-  name: string;
-  label?: string;
-  hint?: string;
-  textFieldProps?: TextFieldProps;
-  inputLabelProps?: InputLabelProps;
-  InputProps?: InputProps;
-} & Omit<ControllerProps, "render">;
+  name: string
+  label?: string
+  hint?: string
+  textFieldProps?: TextFieldProps
+  inputLabelProps?: InputLabelProps
+  InputProps?: InputProps
+} & Omit<ControllerProps, 'render'>
 
-const PhoneFormField = ({
-  label,
-  textFieldProps = {},
-  InputProps = {},
-  inputLabelProps = {},
-  ...rest
-}: PhoneFormFieldProps) => {
+const PhoneFormField = ({ label, textFieldProps = {}, InputProps = {}, inputLabelProps = {}, ...rest }: PhoneFormFieldProps) => {
   return (
     <Controller
       {...rest}
@@ -37,10 +31,10 @@ const PhoneFormField = ({
               {...textFieldProps}
             />
           </FormControl>
-        );
+        )
       }}
     />
-  );
-};
+  )
+}
 
-export default PhoneFormField;
+export default PhoneFormField

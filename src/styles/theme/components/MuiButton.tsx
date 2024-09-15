@@ -1,15 +1,18 @@
-import { ComponentsOverrides, ComponentsProps, Theme } from "@mui/material";
+import { ComponentsOverrides, ComponentsProps, Theme } from '@mui/material'
 
 const MuiButton: {
-  defaultProps: ComponentsProps["MuiButton"];
-  styleOverrides: ComponentsOverrides<Theme>["MuiButton"];
+  defaultProps: ComponentsProps['MuiButton']
+  styleOverrides: ComponentsOverrides<Theme>['MuiButton']
 } = {
   defaultProps: {
-    variant: "contained",
+    variant: 'contained',
+    color: 'primary',
   },
   styleOverrides: {
-    root: () => ({}),
+    root: () => ({
+      textTransform: 'none',
+    }),
   },
-};
+}
 
-export default MuiButton;
+export default MuiButton
