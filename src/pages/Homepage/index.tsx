@@ -1,22 +1,33 @@
-import { Container, Stack, Typography } from '@components/atom'
-import TechCard from '@components/organism/TechCard'
+import { Box, Container, Stack, Typography } from '@components/atom'
 
-import viteLogo from '@assets/images/vite.jpg'
-import reactLogo from '@assets/images/reactjs.png'
 import muiLogo from '@assets/images/mui.png'
+import reactLogo from '@assets/images/reactjs.png'
+import viteLogo from '@assets/images/vite.jpg'
+import { styled } from '@mui/material'
+
+const Image = styled('img')(({ theme }) => ({
+  borderRadius: theme.spacing(2),
+  layout: 'fill',
+  objectFit: 'cover',
+}))
 
 export const Homepage = () => {
   return (
-    <Container sx={{ textAlign: 'center', paddingY: 8, paddingX: 4 }}>
-      <Typography variant="h2" fontSize="bold">
-        Move faster with <br />
+    <Container maxWidth="sm" sx={{ textAlign: 'center', paddingY: 8, paddingX: 4 }}>
+      <Stack mt={12} direction="row" width="100%" justifyContent="space-around">
+        <Box sx={{ position: 'relative', borderRadius: 4 }} width={60} height={60}>
+          <Image src={reactLogo} alt="icon-tech" width="100%" height="100%" />
+        </Box>
+        <Box sx={{ position: 'relative', borderRadius: 4 }} width={60} height={60}>
+          <Image src={viteLogo} alt="icon-tech" width="100%" height="100%" />
+        </Box>
+        <Box sx={{ position: 'relative', borderRadius: 4 }} width={60} height={60}>
+          <Image src={muiLogo} alt="icon-tech" width="100%" height="100%" />
+        </Box>
+      </Stack>
+      <Typography mt={8} variant="h3" fontWeight="bold">
         React + Vite + MUI
       </Typography>
-      <Stack mt={8} direction="row" width="100%" justifyContent="space-around">
-        <TechCard title="ReactJS" subtitle="JavaScript library for building user interfaces" iconUrl={reactLogo}></TechCard>
-        <TechCard title="Vite" subtitle="Next Generation Frontend build Tool" iconUrl={viteLogo}></TechCard>
-        <TechCard title="MUI" subtitle="Material Design UI for React" iconUrl={muiLogo}></TechCard>
-      </Stack>
     </Container>
   )
 }

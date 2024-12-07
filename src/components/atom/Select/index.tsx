@@ -1,48 +1,41 @@
-import { Box, MenuItem, Select as MuiSelect, SelectProps as MuiSelectProps, TextField, styled } from "@mui/material";
-import _ from "lodash";
-import { useRef, useState } from "react";
-import { Typography } from "..";
+import { Box, MenuItem, Select as MuiSelect, SelectProps as MuiSelectProps, TextField, styled } from '@mui/material'
+import _ from 'lodash'
+import { useRef, useState } from 'react'
+import { Typography } from '..'
 
 export const SearchStyled = styled(TextField)(({ theme }) => ({
-  "& .MuiOutlinedInput-root": {
-    "&:hover": {
-      ".MuiOutlinedInput-notchedOutline": {
+  '& .MuiOutlinedInput-root': {
+    '&:hover': {
+      '.MuiOutlinedInput-notchedOutline': {
         borderColor: theme.palette.primary,
       },
     },
-    "&.Mui-focused": {
-      ".MuiOutlinedInput-notchedOutline": {
+    '&.Mui-focused': {
+      '.MuiOutlinedInput-notchedOutline': {
         borderColor: theme.palette.primary,
       },
     },
   },
-}));
+}))
 
 export type SelectProps = {
-  id: string;
-  allowSearch?: boolean;
-  children?: React.ReactNode;
-  valueFieldName?: string;
-  labelFieldName?: string;
-  options: any[];
-} & MuiSelectProps;
+  id: string
+  allowSearch?: boolean
+  children?: React.ReactNode
+  valueFieldName?: string
+  labelFieldName?: string
+  options: any[]
+  placeholder?: string
+} & MuiSelectProps
 
-export const Select = ({
-  id,
-  allowSearch = false,
-  children,
-  placeholder,
-  labelFieldName = "name",
-  options,
-  ...rest
-}: SelectProps) => {
-  const searchRef = useRef<any>();
-  const [searchValue, setSearchValue] = useState("");
+export const Select = ({ id, allowSearch = false, children, placeholder, labelFieldName = 'name', options, ...rest }: SelectProps) => {
+  const searchRef = useRef<any>()
+  const [searchValue, setSearchValue] = useState('')
 
   const handleSearch = (e: any) => {
-    const { value } = e.target;
-    setSearchValue(value);
-  };
+    const { value } = e.target
+    setSearchValue(value)
+  }
 
   return (
     <MuiSelect
@@ -52,23 +45,23 @@ export const Select = ({
       displayEmpty
       onOpen={() => searchRef.current?.focus()}
       renderValue={(selected: any) => {
-        const singleSelectPlaceholder = !selected && placeholder;
-        const multipleSelectPlaceholder = !selected?.length && !!placeholder;
+        const singleSelectPlaceholder = !selected && placeholder
+        const multipleSelectPlaceholder = !selected?.length && !!placeholder
 
         if (singleSelectPlaceholder || multipleSelectPlaceholder) {
-          return <Typography color="grey.400">{placeholder}</Typography>;
+          return <Typography color="grey.400">{placeholder}</Typography>
         }
 
-        if (typeof selected === "string") {
-          return selected;
+        if (typeof selected === 'string') {
+          return selected
         }
 
-        return _.get(selected, labelFieldName);
+        return _.get(selected, labelFieldName)
       }}
       {...rest}
     >
       {placeholder && (
-        <MenuItem sx={{ display: "none" }} value="">
+        <MenuItem sx={{ display: 'none' }} value="">
           <em>{placeholder}</em>
         </MenuItem>
       )}
@@ -77,12 +70,12 @@ export const Select = ({
         <Box p={1} width="100%">
           <SearchStyled
             sx={{
-              width: "calc(100% - 16px)",
+              width: 'calc(100% - 16px)',
             }}
             autoFocus
-            onKeyDown={(e) => {
-              e.stopPropagation();
-              return e;
+            onKeyDown={e => {
+              e.stopPropagation()
+              return e
             }}
             ref={searchRef}
             type="text"
@@ -91,17 +84,17 @@ export const Select = ({
         </Box>
       )}
       {options
-        ?.filter((option) => {
-          if (typeof option === "string") {
-            return option.toLowerCase().includes(searchValue.toLowerCase());
+        ?.filter(option => {
+          if (typeof option === 'string') {
+            return option.toLowerCase().includes(searchValue.toLowerCase())
           }
-          return option[labelFieldName].toLowerCase().includes(searchValue.toLowerCase());
+          return option[labelFieldName].toLowerCase().includes(searchValue.toLowerCase())
         })
-        .map((option) => {
-          return <MenuItem value={option}>{option[labelFieldName]}</MenuItem>;
+        .map(option => {
+          return <MenuItem value={option}>{option[labelFieldName]}</MenuItem>
         })}
     </MuiSelect>
-  );
-};
+  )
+}
 
-export default Select;
+export default Select
