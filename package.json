@@ -48,6 +48,7 @@
     "@storybook/cli": "^7.6.20",
     "@storybook/react": "^7.6.20",
     "@storybook/react-vite": "^7.6.20",
+    "@tanstack/react-query-devtools": "^5.62.3",
     "@testing-library/react": "^14.3.1",
     "@types/lodash": "^4.17.7",
     "@types/node": "^20.16.5",

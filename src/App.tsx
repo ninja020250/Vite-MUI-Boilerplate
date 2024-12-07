@@ -3,8 +3,9 @@ import { CssBaseline } from '@mui/material'
 import { useMemo } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router'
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { QueryClientProvider } from '@tanstack/react-query'
+
 import queryClient from '@utils/queryClient'
 
 import router from './configs/routes.config'
@@ -29,6 +30,7 @@ function App({ ...props }) {
               <CssBaseline />
               <RouterProvider router={router} {...props} />
             </AppLoadingProvider>
+            {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
           </QueryClientProvider>
         </SnackbarProvider>
       </ThemeProvider>
