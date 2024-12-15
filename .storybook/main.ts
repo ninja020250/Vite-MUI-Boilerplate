@@ -6,15 +6,10 @@ export default {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
-    "storybook-addon-designs",
-    "storybook-addon-responsive-views",
-    // "storybook-addon-react-router-v6",
+    "@chromatic-com/storybook",
   ],
   features: {
     emotionAlias: false,
-  },
-  core: {
-    builder: "@storybook/builder-vite",
   },
   async viteFinal(config) {
     return mergeConfig(config, {
@@ -27,7 +22,8 @@ export default {
     name: "@storybook/react-vite",
     options: {},
   },
-  docs: {
-    autodocs: true,
+  docs: {},
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
   },
 };
