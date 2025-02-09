@@ -29,7 +29,7 @@ export type SelectProps = {
 } & MuiSelectProps
 
 export const Select = ({ id, allowSearch = false, children, placeholder, labelFieldName = 'name', options, ...rest }: SelectProps) => {
-  const searchRef = useRef<any>()
+  const searchRef = useRef<any>(null)
   const [searchValue, setSearchValue] = useState('')
 
   const handleSearch = (e: any) => {
