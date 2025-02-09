@@ -1,66 +1,67 @@
-import { useMemoizedFn } from "ahooks";
-import dayjs from "dayjs";
-import _debounce from "lodash/debounce";
-import { useEffect, useRef, useState } from "react";
+import dayjs from 'dayjs'
+import _debounce from 'lodash/debounce'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 interface UseActivityTrackerProps {
-  timeoutInMinutes: number;
-  onTimeout: () => void;
+  timeoutInMinutes: number
+  onTimeout: () => void
 }
 
 const useActivityTracker = ({ onTimeout, timeoutInMinutes }: UseActivityTrackerProps) => {
-  const timeoutRef = useRef<number | null>(null);
-  const [lastActivity, setLastActivity] = useState(dayjs().toISOString());
-  const setLastActivityTime = useMemoizedFn(
+  const timeoutRef = useRef<number | null>(null)
+  const [lastActivity, setLastActivity] = useState(dayjs().toISOString())
+  const setLastActivityTime = useCallback(
     _debounce(() => {
-      setLastActivity(dayjs().toISOString());
+      setLastActivity(dayjs().toISOString())
       // localStorage.setItem("LAST_ACTIVITY", dayjs().toISOString());
-    }, 300)
-  );
+    }, 300),
+    [],
+  )
 
-  const getLastActivityTime = useMemoizedFn(
+  const getLastActivityTime = useCallback(
     _debounce(() => {
       // const isoString = localStorage.getItem("LAST_ACTIVITY");
-      return lastActivity ? dayjs(lastActivity) : dayjs();
-    })
-  );
+      return lastActivity ? dayjs(lastActivity) : dayjs()
+    }),
+    [lastActivity],
+  )
 
   useEffect(() => {
     const handleActivity = () => {
-      setLastActivityTime();
-    };
+      setLastActivityTime()
+    }
 
     const checkInactivity = () => {
-      const currentTime = dayjs();
-      const lastActivityTime = getLastActivityTime();
-      const inActiveDuration = currentTime.diff(lastActivityTime, "minutes");
+      const currentTime = dayjs()
+      const lastActivityTime = getLastActivityTime()
+      const inActiveDuration = currentTime.diff(lastActivityTime, 'minutes')
 
       if (inActiveDuration >= timeoutInMinutes) {
-        onTimeout();
+        onTimeout()
       }
-    };
+    }
 
-    timeoutRef.current = window.setInterval(checkInactivity, 5000); // 5s
+    timeoutRef.current = window.setInterval(checkInactivity, 5000) // 5s
 
-    window.addEventListener("mousemove", handleActivity);
-    window.addEventListener("keydown", handleActivity);
-    window.addEventListener("visibilitychange", handleActivity);
+    window.addEventListener('mousemove', handleActivity)
+    window.addEventListener('keydown', handleActivity)
+    window.addEventListener('visibilitychange', handleActivity)
 
     return () => {
       // Stop countdown on unmount
       if (timeoutRef.current != null) {
-        window.clearInterval(timeoutRef.current);
+        window.clearInterval(timeoutRef.current)
       }
 
       // remove event listener
-      window.removeEventListener("mousemove", handleActivity);
-      window.removeEventListener("keydown", handleActivity);
-      window.removeEventListener("visibilitychange", handleActivity);
-    };
+      window.removeEventListener('mousemove', handleActivity)
+      window.removeEventListener('keydown', handleActivity)
+      window.removeEventListener('visibilitychange', handleActivity)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
-  return getLastActivityTime();
-};
+  return getLastActivityTime()
+}
 
-export default useActivityTracker;
+export default useActivityTracker
