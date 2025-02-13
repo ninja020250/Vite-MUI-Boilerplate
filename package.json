@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "keywords": [
+    "vite",
+    "react",
+    "template"
+  ],
   "scripts": {
     "dev": "vite",
     "sit": "vite --mode sit",
